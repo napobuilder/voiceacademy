@@ -687,7 +687,7 @@
                     <p class="subtitulo">TU VOZ ES ÚNICA. TU CARRERA TAMBIÉN DEBERÍA SERLO.</p>
                     <h1><span class="headline-light">Haz de </span><span class="headline-bold">tu voz</span><br><span class="headline-light">una </span><span class="headline-bold">marca</span></h1>
                     <p>No busques una voz perfecta. En Voice Academy, tenemos el m&eacute;todo para transformar tu voz integr&aacute;ndola con tu capacidad de comunicar para que logres impactar cuando comuniques. Aqu&iacute; construimos artistas.</p>
-                    <a href="#cta-final" class="btn btn-primary">Comienza tu Diagnóstico</a>
+                    <a href="#presenciales" class="btn btn-primary">Explorar Cursos</a>
                 </div>
             </div>
         </section>
@@ -736,6 +736,14 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="cashea-promo animate-on-scroll" style="text-align: center; margin-top: 60px;">
+                    <img src="logocashea.png" alt="Logo de Cashea" style="max-width: 150px; margin-bottom: 20px;">
+                    <span style="font-weight: bold; font-size: 2.0rem; display: block; margin-bottom: 15px; color: var(--color-accent-blue);">Ya disponible</span>
+                    <p style="font-size: 1.1rem; color: var(--color-texto-secundario); max-width: 600px; margin: 0 auto;">
+                        ¡Tu formación al alcance de tu mano! Ahora puedes financiar tu camino hacia el éxito vocal con <strong>Cashea</strong>.
+                        Paga en cuotas sin intereses y haz de tu voz una marca sin preocupaciones.
+                    </p>
                 </div>
             </div>
         </section>
@@ -1035,6 +1043,10 @@
                         <i class="fa-solid fa-dollar-sign fa-fw"></i>
                         <span id="modal-price"></span>
                     </li>
+                    <li id="modal-cashea-li">
+                        <img src="logosolo.png" alt="Cashea Logo" style="width: 25px; vertical-align: middle; margin-right: 10px;">
+                        <span id="modal-cashea">Financia con Cashea</span>
+                    </li>
                 </ul>
                 <h3>¿Qué aprenderás?</h3>
                 <ul id="modal-temario">
@@ -1179,6 +1191,7 @@
         const modalSchedule = document.getElementById('modal-schedule');
         const modalCapacity = document.getElementById('modal-capacity');
         const modalPrice = document.getElementById('modal-price');
+        const modalCashea = document.getElementById('modal-cashea');
         const modalTemario = document.getElementById('modal-temario');
         const modalWhatsappButton = document.getElementById('modal-whatsapp-button');
 
@@ -1337,6 +1350,7 @@
                 modalSchedule.textContent = course.schedule || 'Horarios a convenir';
                 modalCapacity.textContent = course.capacity || 'Cupos limitados';
                 modalPrice.textContent = course.price || 'Consultar precio';
+                modalCashea.textContent = 'Financia con Cashea';
 
                 modalTemario.innerHTML = '';
                 if (course.temario && course.temario.length > 0) {
@@ -1351,7 +1365,7 @@
                     modalTemario.appendChild(li);
                 }
 
-                const whatsappMessage = `¡Hola! Estoy interesado/a en el curso de *${course.title}*. ¿Podrían darme más información?`;
+                const whatsappMessage = `¡Hola Voice Academy! 👋 Me interesa mucho el curso de *${course.title}* que inicia el *${course.date}*. Me gustaría saber cuáles son los siguientes pasos para reservar mi cupo. ¡Gracias!`;
                 const phoneNumber = '584123456789'; // Reemplazar con el número real
                 modalWhatsappButton.href = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
 
