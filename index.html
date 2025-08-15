@@ -262,6 +262,10 @@
         .info-card-icon svg { width: 35px; height: 35px; fill: white; }
         .info-card h3 { font-size: 1.5rem; color: var(--color-accent-blue); margin-bottom: 15px; }
         .info-card p { color: var(--color-texto-secundario); margin-bottom: 25px; flex-grow: 1; }
+        .course-details { margin-bottom: 25px; text-align: left; font-size: 0.9rem; }
+        .course-details div { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; color: var(--color-texto-secundario); }
+        .course-details i { color: var(--color-accent-orange); width: 16px; text-align: center; }
+        .course-details strong { color: var(--color-texto-principal); font-weight: 600; }
 
         /* --- AJUSTES PARA SECCIONES CON FONDOS DE COLOR --- */
         .colored-section {
@@ -383,6 +387,9 @@
         #presenciales .info-card h3, #presenciales .info-card p {
             color: var(--color-white);
         }
+        #presenciales .course-details div { color: var(--color-white); }
+        #presenciales .course-details strong { color: var(--color-white); }
+        #presenciales .course-details i { color: var(--color-white); }
         #presenciales .info-card .info-card-icon {
             background-color: var(--color-white);
         }
@@ -556,6 +563,97 @@
             }
         }
 
+    /* --- EFECTO HOVER PARA IMÁGENES DE INSTRUCTOR --- */
+        @media (hover: hover) {
+            .instructor-img {
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+            .instructor-img:hover {
+                transform: scale(1.05);
+                box-shadow: 0 20px 50px rgba(0, 35, 102, 0.25); /* Sombra más intensa */
+            }
+        }
+
+    
+
+    /* --- NUEVOS ESTILOS PARA EL MODAL DE CURSOS --- */
+        .course-modal-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0, 35, 102, 0.6);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+        .course-modal-overlay.visible { opacity: 1; visibility: visible; }
+        .course-modal {
+            background-color: var(--color-fondo-seccion);
+            border-radius: var(--radio-borde);
+            box-shadow: var(--sombra-intensa);
+            width: 90%;
+            max-width: 650px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 40px;
+            position: relative;
+            transform: scale(0.95);
+            transition: transform 0.4s ease;
+        }
+        .course-modal-overlay.visible .course-modal { transform: scale(1); }
+        .course-modal-close {
+            position: absolute;
+            top: 15px; right: 15px;
+            background: none; border: none;
+            font-size: 2rem; color: var(--color-texto-secundario);
+            cursor: pointer; line-height: 1;
+        }
+        .course-modal-header h2 { font-size: 2.2rem; color: var(--color-accent-blue); margin-bottom: 10px; }
+        .course-modal-header p { font-size: 1.1rem; color: var(--color-texto-secundario); margin-bottom: 30px; }
+        .course-modal-body h3 { font-size: 1.3rem; color: var(--color-accent-blue); margin-bottom: 15px; padding-bottom: 5px; border-bottom: 2px solid #eee; }
+        .course-modal-body ul { list-style: none; margin-bottom: 30px; }
+        .course-modal-body ul li { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+        .course-modal-body ul li i { color: var(--color-accent-orange); margin-top: 5px; }
+        .course-modal-footer { text-align: center; margin-top: 30px; }
+        .btn-whatsapp-modal {
+            background: linear-gradient(45deg, #25D366, #128C7E);
+            color: white;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            font-size: 1.1rem;
+            padding: 15px 35px;
+            width: 100%;
+        }
+        .btn-whatsapp-modal i { margin-right: 10px; }
+
+        /* --- MEDIA QUERIES --- */
+        @media (max-width: 992px) {
+            .slanted-section { clip-path: none !important; margin-top: 0; padding-top: 100px; }
+            .nav-links { position: absolute; top: calc(100% + 10px); left: 0; width: 100%; background-color: var(--color-accent-blue); flex-direction: column; align-items: stretch; padding: 20px; border-radius: var(--radio-borde); box-shadow: var(--sombra-intensa); display: none; }
+            .nav-links.active { display: flex; }
+            .nav-links ul { flex-direction: column; gap: 0; }
+            .nav-links ul li { width: 100%; }
+            .nav-links ul a { display: block; padding: 15px; text-align: center; }
+            .nav-links .btn { width: 100%; text-align: center; margin-top: 10px; }
+            .nav-toggle { display: flex; }
+            .hero-content h1 { font-size: 3.5rem; }
+            .feature-grid { grid-template-columns: 1fr; }
+            .feature-image-container { margin-bottom: 3rem; max-width: 400px; margin-left: auto; margin-right: auto; }
+            #servicios .feature-grid { grid-template-columns: 1fr; }
+            #servicios .feature-image-container { order: -1; }
+        }
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 2.8rem; }
+            .section-header h2 { font-size: 2.2rem; }
+            .funnel-container { padding: 30px 20px; }
+            .course-modal { padding: 30px 25px; }
+            .course-modal-header h2 { font-size: 1.8rem; }
+        }
+
     </style>
 </head>
 <body>
@@ -573,7 +671,7 @@
                     <li><a href="#servicios">Servicios</a></li>
                     <li><a href="#nosotros">Nosotros</a></li>
                 </ul>
-                <a href="#cta-final" class="btn btn-primary">Diagnóstico Gratuito</a>
+                <a href="#presenciales" class="btn btn-primary">Explorar Cursos</a>
             </div>
             <button class="nav-toggle" aria-label="Abrir menú">
                 <span></span><span></span><span></span>
@@ -588,7 +686,7 @@
                 <div class="hero-content animate-on-scroll">
                     <p class="subtitulo">TU VOZ ES ÚNICA. TU CARRERA TAMBIÉN DEBERÍA SERLO.</p>
                     <h1><span class="headline-light">Haz de </span><span class="headline-bold">tu voz</span><br><span class="headline-light">una </span><span class="headline-bold">marca</span></h1>
-                    <p>Deja de soñar con tener la "voz perfecta". En Voice Academy, te entregamos el método riguroso para transformar tu autenticidad en una carrera profesional. No enseñamos a imitar; construimos artistas.</p>
+                    <p>No busques una voz perfecta. En Voice Academy, tenemos el m&eacute;todo para transformar tu voz integr&aacute;ndola con tu capacidad de comunicar para que logres impactar cuando comuniques. Aqu&iacute; construimos artistas.</p>
                     <a href="#cta-final" class="btn btn-primary">Comienza tu Diagnóstico</a>
                 </div>
             </div>
@@ -598,8 +696,8 @@
         <section id="metodo" class="slanted-section slanted-top-backward colored-section">
             <div class="container">
                 <div class="section-header animate-on-scroll">
-                    <h2>Más Allá del Talento: El Poder del Método</h2>
-                    <p>La industria está llena de voces talentosas que nunca llegan a profesionalizarse. ¿Por qué? Porque el talento sin un método es como un motor sin chasis. Se te ha hecho creer que necesitas un "don" especial, pero lo que realmente necesitas es un sistema que te dé control, confianza y dirección. Aquí, le damos a tu voz la estructura que necesita para triunfar.</p>
+                    <h2>Vamos más allá del talento: El poder de nuestro método</h2>
+                    <p>La industria está llena de voces buenas y talentosas que nunca llegan a profesionalizarse y no alcanzan su máximo nivel nunca. ¿Por qué? Porque el talento y la experiencia por sí solos no son suficientes para destacar en una industria cada vez más competitiva y demandante. Nuestro método se basa en el desarrollo de técnicas y herramientas que potencian el talento, aquí desmitificamos aquello de “la voz de locutor”, hacemos énfasis en el conocimiento profundo de tu aparato fonador, el desarrollo de tu confianza y te entregamos lo necesario para que puedas modelar, cambiar y mejorar tus talentos y capacidades. Aquí, le damos a tu voz la estructura que necesita para triunfar.</p>
                 </div>
             </div>
         </section>
@@ -608,8 +706,8 @@
         <section id="filosofia" class="slanted-section slanted-top-backward">
             <div class="container">
                 <div class="section-header animate-on-scroll">
-                    <h2>Un Método para tu Voz. Un Modelo para tu Vida.</h2>
-                    <p>Nuestro enfoque no se detiene en la técnica. Te entregamos un sistema de principios que usarás para siempre.</p>
+                    <h2>No se trata sólo de locución. Son herramientas para la vida.</h2>
+                    <p>Nuestro enfoque es multifactorial, te damos herramientas para mejorar tu voz, pero también hacemos énfasis en el lenguaje no verbal, en las habilidades de expresión oral y en la comunicación eficaz como proceso para que seas un mejor profesional, independientemente del área laboral en la que te desempeñes.</p>
                 </div>
                 <div class="feature-grid">
                     <div class="feature-image-container animate-on-scroll">
@@ -620,21 +718,21 @@
                             <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,2A3,3 0 0,0 9,5V11A3,3 0 0,0 12,14A3,3 0 0,0 15,11V5A3,3 0 0,0 12,2M19,11C19,14.53 16.39,17.44 13,17.93V21H11V17.93C7.61,17.44 5,14.53 5,11H7A5,5 0 0,1 12,16A5,5 0 0,1 17,11H19Z"/></svg></div>
                             <div class="feature-text">
                                 <h3>Dicción que Impacta</h3>
-                                <p>En comunicación no basta con tener una dicción decente, marcas la diferencia y logras una atención impactante cuando pronuncias todo y lo haces con naturalidad y fluidez.</p>
+                                <p>En comunicación no basta con tener una dicción decente, marcas la diferencia y logras una atención impactante en las audiencias cuando tu pronunciación es perfecta y más, cuando lo haces con naturalidad y fluidez.</p>
                             </div>
                         </div>
                         <div class="feature-item animate-on-scroll" style="transition-delay: 0.2s;">
-                            <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,1L9,4V7C4.5,7 1,10.5 1,15C1,19.5 4.5,23 9,23H15C19.5,23 23,19.5 23,15C23,10.5 19.5,7 15,7V4L12,1M12,12.5A2.5,2.5 0 0,1 14.5,15A2.5,2.5 0 0,1 12,17.5A2.5,2.5 0 0,1 9.5,15A2.5,2.5 0 0,1 12,12.5Z" /></svg></div>
+                            <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,1L9,4V7C4.5,7 1,10.5 1,15C1,19.5 4.5,23 9,23H15C19.5,23 23,19.5 23,15C23,10.5 19.5,7 15,7V4L12,1M12,12.5A2.5,2.5 0 0,1 14.5,15A2.5,2.5 0 0,1 12,17.5A2.5,2.5 0 0,1 9.5,15A2.5,2.5 0 0,1 12,12.5Z"/></svg></div>
                             <div class="feature-text">
                                 <h3>Tu Voz como Negocio</h3>
-                                <p>Aprende a monetizar tu talento. Te guiamos para que conviertas tu voz en una marca personal y navegues la industria como un verdadero empresario de tu carrera.</p>
+                                <p>Aprende a monetizar tu talento. Te guiamos para que conviertas tu voz en tu huella sonora. Te apoyamos en la construcción de tu marca personal como artista de la voz, para que te conduzcas en la industria como un verdadero empresario de tu carrera.</p>
                             </div>
                         </div>
                         <div class="feature-item animate-on-scroll" style="transition-delay: 0.3s;">
                             <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg></div>
                             <div class="feature-text">
                                 <h3>Comunicación Asertiva</h3>
-                                <p>Descubre que la disciplina para dominar tu voz es la misma que usarás para controlar tu vida. Aprende asertividad desde el uso correcto de tu tono, velocidad e intensidad.</p>
+                                <p>Descubre que la disciplina y la constancia para dominar todas las cualidades de tu voz, es la misma que usarás para manejar otros aspectos de tu vida personal y profesional. Aprende asertividad y eficacia en la comunicación desde el uso correcto de las cualidades de tu voz y entendiendo los principios de la comunicación.</p>
                             </div>
                         </div>
                     </div>
@@ -646,27 +744,81 @@
         <section id="presenciales" class="slanted-section slanted-top-forward colored-section">
             <div class="container">
                 <div class="section-header animate-on-scroll">
-                    <h2>Formación Presencial</h2>
-                    <p>Vive la experiencia Voice Academy en persona. Grupos reducidos, feedback inmediato y la energía de aprender junto a otros artistas de la voz.</p>
+                    <h2>Cursos Presenciales</h2>
+                    <p>Vive la experiencia Voice Academy en persona. Grupos reducidos, feedback inmediato, cursos 100% prácticos y la energía de aprender junto a otros artistas de la voz.</p>
                 </div>
                 <div class="grid-3-col">
-                    <div class="info-card animate-on-scroll">
+                    <div class="info-card animate-on-scroll"
+                         data-curso-fecha="Inicia: Lun 16 de Septiembre"
+                         data-curso-cupos="7 cupos disponibles">
                         <div class="info-card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,2A3,3 0 0,0 9,5V11A3,3 0 0,0 12,14A3,3 0 0,0 15,11V5A3,3 0 0,0 12,2M19,11C19,14.53 16.39,17.44 13,17.93V21H11V17.93C7.61,17.44 5,14.53 5,11H7A5,5 0 0,1 12,16A5,5 0 0,1 17,11H19Z"/></svg></div>
-                        <h3>Locución Profesional Intensivo</h3>
-                        <p>Un bootcamp de 8 semanas para dominar la locución comercial y la narración. Graba tu primer demo en nuestro estudio.</p>
-                        <a href="#cta-final" class="btn btn-primary">Más Información</a>
+                        <h3>Acento Neutro</h3>
+                        <p>Un entrenamiento intensivo y efectivo, trabajando con un método propio que te enseña a deslocalizar tu acento natal. Te enseñamos sus distintas aplicaciones para la oratoria, la locución, el doblaje y para la comunicación en general. No vas a creer como cambia tu forma de comunicar cuando deslocalizas y neutralizas tu acento.</p>
+                        <div class="course-details">
+                            <div><i class="fa-solid fa-calendar-days"></i><strong>Inicia:</strong> Lun 16 de Septiembre</div>
+                            <div><i class="fa-solid fa-users"></i><strong>Cupos:</strong> 7 cupos disponibles</div>
+                        </div>
+                        <a href="javascript:void(0);" onclick="openModal('acento-neutro-presencial')" class="btn btn-primary">Comenzar</a>
                     </div>
-                    <div class="info-card animate-on-scroll" style="transition-delay: 0.2s;">
+                    <div class="info-card animate-on-scroll" style="transition-delay: 0.2s;"
+                         data-curso-fecha="Inicia: Mar 17 de Septiembre"
+                         data-curso-cupos="Grupos reducidos">
                         <div class="info-card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-2-10h4v2h-4v-2zm0 4h4v2h-4v-2z"/></svg></div>
-                        <h3>Iniciación al Doblaje</h3>
-                        <p>Aprende las bases del doblaje de personajes y la sincronización de labios (lip-sync) en un entorno práctico y divertido.</p>
-                        <a href="#cta-final" class="btn btn-primary">Más Información</a>
+                        <h3>Dicción Perfecta</h3>
+                        <p>Deja de usar el lápiz creyendo que vas a corregir tus problemas de pronunciación. Aquí te enseñamos un método único que se basa en la mecánica de los fonemas y en el componente auditivo de la dicción, para que tu pronunciación vaya de 0 a 100 en 4 simples pasos. 100% práctico, interactivo y con resultados sorprendentes.</p>
+                        <div class="course-details">
+                            <div><i class="fa-solid fa-calendar-days"></i><strong>Inicia:</strong> Mar 17 de Septiembre</div>
+                            <div><i class="fa-solid fa-users"></i><strong>Cupos:</strong> Grupos reducidos</div>
+                        </div>
+                        <a href="javascript:void(0);" onclick="openModal('diccion-perfecta-presencial')" class="btn btn-primary">Comenzar</a>
                     </div>
-                    <div class="info-card animate-on-scroll" style="transition-delay: 0.4s;">
+                    <div class="info-card animate-on-scroll" style="transition-delay: 0.4s;"
+                         data-curso-fecha="Inicia: Mié 18 de Septiembre"
+                         data-curso-cupos="Grupos reducidos">
                         <div class="info-card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 21.035V19.035H5V5H19V19H15V21.035L12 18.035L9 21.035ZM19 3H5C3.9 3 3 3.9 3 5V21L12 15L21 21V5C21 3.9 20.1 3 19 3Z"/></svg></div>
-                        <h3>Oratoria y Voz para Líderes</h3>
-                        <p>Un taller ejecutivo de fin de semana para potenciar tu comunicación, persuadir con tu voz y proyectar liderazgo.</p>
-                        <a href="#cta-final" class="btn btn-primary">Más Información</a>
+                        <h3>Locución Comercial</h3>
+                        <p>La disciplina más rentable del mundo profesional de la voz. Aprende a decodificar y comprender los textos, herramientas para lograr diferencias estilos e intenciones comerciales, manejo de las cualidades de la voz, entiende el nuevo rol del locutor comercial, aprende las técnicas de la locución internacional en una experiencia dinámica, práctica y con dirección personalizada.</p>
+                        <div class="course-details">
+                            <div><i class="fa-solid fa-calendar-days"></i><strong>Inicia:</strong> Mié 18 de Septiembre</div>
+                            <div><i class="fa-solid fa-users"></i><strong>Cupos:</strong> Grupos reducidos</div>
+                        </div>
+                        <a href="javascript:void(0);" onclick="openModal('locucion-comercial-presencial')" class="btn btn-primary">Comenzar</a>
+                    </div>
+                     <div class="info-card animate-on-scroll"
+                        data-curso-fecha="Inicia: Jue 19 de Septiembre"
+                        data-curso-cupos="Grupos reducidos">
+                        <div class="info-card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,2A3,3 0 0,0 9,5V11A3,3 0 0,0 12,14A3,3 0 0,0 15,11V5A3,3 0 0,0 12,2M19,11C19,14.53 16.39,17.44 13,17.93V21H11V17.93C7.61,17.44 5,14.53 5,11H7A5,5 0 0,1 12,16A5,5 0 0,1 17,11H19Z"/></svg></div>
+                        <h3>Doblaje Básico</h3>
+                        <p>Vive una experiencia inmersiva en el mundo del doblaje, entrenando tu capacidad interpretativa, manejando y controlando tonos, matices, ritmos e intenciones, aprende a manejar el lip sync y otras herramientas para que vivas la experiencia real de ponerle tu voz a personajes de series reales o dibujos animados. Prácticas dirigidas y ejercicios reales.</p>
+                        <div class="course-details">
+                            <div><i class="fa-solid fa-calendar-days"></i><strong>Inicia:</strong> Jue 19 de Septiembre</div>
+                            <div><i class="fa-solid fa-users"></i><strong>Cupos:</strong> Grupos reducidos</div>
+                        </div>
+                        <a href="javascript:void(0);" onclick="openModal('doblaje-basico-presencial')" class="btn btn-primary">Comenzar</a>
+                    </div>
+                    <div class="info-card animate-on-scroll" style="transition-delay: 0.2s;"
+                         data-curso-fecha="Inicia: Vie 20 de Septiembre"
+                         data-curso-cupos="Grupos reducidos">
+                        <div class="info-card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-2-10h4v2h-4v-2zm0 4h4v2h-4v-2z"/></svg></div>
+                        <h3>Oratoria</h3>
+                        <p>La oratoria moderna, la que se basa en la comunicación efectiva, en la estructura de mensajes orientados a impactar mediante herramientas como el storytelling, la naturalidad y el sentido orgánico de la expresión, pero trabajada con técnicas y herramientas para hacerlo bien, que suene bien y que se vea bien. No hay comunicación sin autenticidad y eso es lo que te enseñamos aquí.</p>
+                        <div class="course-details">
+                            <div><i class="fa-solid fa-calendar-days"></i><strong>Inicia:</strong> Vie 20 de Septiembre</div>
+                            <div><i class="fa-solid fa-users"></i><strong>Cupos:</strong> Grupos reducidos</div>
+                        </div>
+                        <a href="javascript:void(0);" onclick="openModal('oratoria-presencial')" class="btn btn-primary">Comenzar</a>
+                    </div>
+                    <div class="info-card animate-on-scroll" style="transition-delay: 0.4s;"
+                         data-curso-fecha="Inicia: Sáb 21 de Septiembre"
+                         data-curso-cupos="Grupos reducidos">
+                        <div class="info-card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 21.035V19.035H5V5H19V19H15V21.035L12 18.035L9 21.035ZM19 3H5C3.9 3 3 3.9 3 5V21L12 15L21 21V5C21 3.9 20.1 3 19 3Z"/></svg></div>
+                        <h3>Doblaje de Dibujos Animados</h3>
+                        <p>El doblaje de animados no es imitar voces o “hacer vocecitas” la caracterización es un arte y se basa en técnica. Aprende a manejar tu voz, a colocarla, a usar tus resonadores para convertirla en aguda o en grave segúnelas características de tu personaje. Te enseñamos a combinar esas habilidades con la interpretación a través de técnicas divertidas, inmersivas y 100% prácticas.</p>
+                        <div class="course-details">
+                            <div><i class="fa-solid fa-calendar-days"></i><strong>Inicia:</strong> Sáb 21 de Septiembre</div>
+                            <div><i class="fa-solid fa-users"></i><strong>Cupos:</strong> Grupos reducidos</div>
+                        </div>
+                        <a href="javascript:void(0);" onclick="openModal('doblaje-animados-presencial')" class="btn btn-primary">Comenzar</a>
                     </div>
                 </div>
             </div>
@@ -677,20 +829,56 @@
             <div class="container">
                 <div class="section-header animate-on-scroll">
                     <h2>Talleres Online en Vivo</h2>
-                    <p>Fórmate desde cualquier parte del mundo con la misma calidad y cercanía. Clases en directo, interacción constante y acceso a las grabaciones.</p>
+                    <p>Fórmate desde cualquier parte del mundo con la misma calidad y cercanía. Clases en directo, interacción constante, dirección personalizada, ejercicios prácticos y acceso a las grabaciones de las clases.</p>
                 </div>
                 <div class="grid-3-col">
-                    <div class="info-card animate-on-scroll">
+                    <div class="info-card animate-on-scroll"
+                         data-curso-fecha="Fechas disponibles"
+                         data-curso-cupos="7 cupos disponibles">
                         <div class="info-card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4,6H2V20A2,2 0 0,0 4,22H18V20H4V6M20,2H8A2,2 0 0,0 6,4V16A2,2 0 0,0 8,18H20A2,2 0 0,0 22,16V4A2,2 0 0,0 20,2Z" /></svg></div>
-                        <h3>Técnica Vocal para Creadores</h3>
-                        <p>Cuida tu voz y mejora tu sonido. Un taller de 4 semanas para podcasters, youtubers y streamers.</p>
-                        <a href="#cta-final" class="btn btn-primary">Ver Fechas</a>
+                        <h3>Locución Comercial</h3>
+                        <p>La disciplina más rentable del mundo profesional de la voz. Aprende a decodificar textos, diferenciar estilos e intenciones y manejar las cualidades de la voz.</p>
+                        <div class="course-details">
+                            <div><i class="fa-solid fa-calendar-days"></i><strong>Fecha:</strong> Fechas disponibles</div>
+                            <div><i class="fa-solid fa-users"></i><strong>Cupos:</strong> 7 cupos disponibles</div>
+                        </div>
+                        <a href="javascript:void(0);" onclick="openModal('locucion-comercial-online')" class="btn btn-primary">Ver Fechas</a>
                     </div>
-                    <div class="info-card animate-on-scroll" style="transition-delay: 0.2s;">
+                    <div class="info-card animate-on-scroll" style="transition-delay: 0.2s;"
+                         data-curso-fecha="Fechas disponibles"
+                         data-curso-cupos="Cupos limitados">
                         <div class="info-card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.5,12A1.5,1.5 0 0,1 19,10.5A1.5,1.5 0 0,1 17.5,9A1.5,1.5 0 0,1 16,10.5A1.5,1.5 0 0,1 17.5,12M14.5,12A1.5,1.5 0 0,1 16,10.5A1.5,1.5 0 0,1 14.5,9A1.5,1.5 0 0,1 13,10.5A1.5,1.5 0 0,1 14.5,12M9.5,12A1.5,1.5 0 0,1 11,10.5A1.5,1.5 0 0,1 9.5,9A1.5,1.5 0 0,1 8,10.5A1.5,1.5 0 0,1 9.5,12M6.5,12A1.5,1.5 0 0,1 8,10.5A1.5,1.5 0 0,1 6.5,9A1.5,1.5 0 0,1 5,10.5A1.5,1.5 0 0,1 6.5,12M12,3A9,9 0 0,0 3,12A9,9 0 0,0 12,21A9,9 0 0,0 21,12A9,9 0 0,0 12,3Z" /></svg></div>
-                        <h3>Casting y Marca Personal Vocal</h3>
-                        <p>Aprende a prepararte para audiciones, crear una marca sólida y moverte en la industria de la voz.</p>
-                        <a href="#cta-final" class="btn btn-primary">Ver Fechas</a>
+                        <h3>Acento Neutro</h3>
+                        <p>Un entrenamiento intensivo y efectivo con un método propio que te enseña a deslocalizar tu acento natal y sus distintas aplicaciones para la comunicación.</p>
+                        <div class="course-details">
+                            <div><i class="fa-solid fa-calendar-days"></i><strong>Fecha:</strong> Fechas disponibles</div>
+                            <div><i class="fa-solid fa-users"></i><strong>Cupos:</strong> Cupos limitados</div>
+                        </div>
+                        <a href="javascript:void(0);" onclick="openModal('acento-neutro-online')" class="btn btn-primary">Ver Fechas</a>
+                    </div>
+                    <div class="info-card animate-on-scroll"
+                         data-curso-fecha="Fechas disponibles"
+                         data-curso-cupos="Cupos limitados">
+                        <div class="info-card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4,6H2V20A2,2 0 0,0 4,22H18V20H4V6M20,2H8A2,2 0 0,0 6,4V16A2,2 0 0,0 8,18H20A2,2 0 0,0 22,16V4A2,2 0 0,0 20,2Z" /></svg></div>
+                        <h3>Oratoria</h3>
+                        <p>La oratoria moderna basada en la comunicación efectiva, la estructura de mensajes y el storytelling para impactar con naturalidad y autenticidad.</p>
+                        <div class="course-details">
+                            <div><i class="fa-solid fa-calendar-days"></i><strong>Fecha:</strong> Fechas disponibles</div>
+                            <div><i class="fa-solid fa-users"></i><strong>Cupos:</strong> Cupos limitados</div>
+                        </div>
+                        <a href="javascript:void(0);" onclick="openModal('oratoria-online')" class="btn btn-primary">Ver Fechas</a>
+                    </div>
+                    <div class="info-card animate-on-scroll" style="transition-delay: 0.2s;"
+                         data-curso-fecha="Fechas disponibles"
+                         data-curso-cupos="Cupos limitados">
+                        <div class="info-card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.5,12A1.5,1.5 0 0,1 19,10.5A1.5,1.5 0 0,1 17.5,9A1.5,1.5 0 0,1 16,10.5A1.5,1.5 0 0,1 17.5,12M14.5,12A1.5,1.5 0 0,1 16,10.5A1.5,1.5 0 0,1 14.5,9A1.5,1.5 0 0,1 13,10.5A1.5,1.5 0 0,1 14.5,12M9.5,12A1.5,1.5 0 0,1 11,10.5A1.5,1.5 0 0,1 9.5,9A1.5,1.5 0 0,1 8,10.5A1.5,1.5 0 0,1 9.5,12M6.5,12A1.5,1.5 0 0,1 8,10.5A1.5,1.5 0 0,1 6.5,9A1.5,1.5 0 0,1 5,10.5A1.5,1.5 0 0,1 6.5,12M12,3A9,9 0 0,0 3,12A9,9 0 0,0 12,21A9,9 0 0,0 21,12A9,9 0 0,0 12,3Z" /></svg></div>
+                        <h3>Doblaje Básico</h3>
+                        <p>Una experiencia inmersiva en el doblaje, entrenando tu capacidad interpretativa, manejando tonos, matices, ritmos, intenciones y lip sync.</p>
+                        <div class="course-details">
+                            <div><i class="fa-solid fa-calendar-days"></i><strong>Fecha:</strong> Fechas disponibles</div>
+                            <div><i class="fa-solid fa-users"></i><strong>Cupos:</strong> Cupos limitados</div>
+                        </div>
+                        <a href="javascript:void(0);" onclick="openModal('doblaje-basico-online')" class="btn btn-primary">Ver Fechas</a>
                     </div>
                 </div>
             </div>
@@ -711,7 +899,7 @@
                             </div>
                             <div class="feature-text">
                                 <h3>Grabación de Demos</h3>
-                                <p>Producimos tu carta de presentación sonora. Grabación, dirección, edición y mezcla de alta calidad para destacar.</p>
+                                <p>El demo es una pieza estratégica de mercadeo, es lo que le demuestra a la industria de la voz que existes. Aquí producimos tu carta de presentación sonora. Producción de textos originales, grabación, dirección, edición y mezcla de alta calidad para destacar.</p>
                                 <a href="#cta-final" class="btn btn-primary" style="margin-top: 1rem;">Cotizar Demo</a>
                             </div>
                         </div>
@@ -721,7 +909,7 @@
                             </div>
                             <div class="feature-text">
                                 <h3>Clases Personalizadas</h3>
-                                <p>Sesiones privadas con nuestros directores para trabajar objetivos específicos, preparar un casting o pulir tu técnica.</p>
+                                <p>Sesiones privadas con nuestro director para trabajar objetivos y necesidades específicas, comunicación, vocería, locución comercial, narración documental, oratoria, acento neutro, dicción, así como preparar un casting o pulir tu técnica.</p>
                                 <a href="#cta-final" class="btn btn-primary" style="margin-top: 1rem;">Agendar Sesión</a>
                             </div>
                         </div>
@@ -731,7 +919,7 @@
                             </div>
                             <div class="feature-text">
                                 <h3>Estudio de Grabación</h3>
-                                <p>Nuestras cabinas están equipadas y disponibles para tus proyectos de grabación personal, podcasts o audiolibros.</p>
+                                <p>Nuestra cabina está equipada y disponible para tus proyectos de grabación personal, castings, audiciones, narraciones, comerciales o audiolibros.</p>
                                 <a href="#cta-final" class="btn btn-primary" style="margin-top: 1rem;">Reservar Estudio</a>
                             </div>
                         </div>
@@ -747,48 +935,30 @@
             <div class="container">
                 <div class="section-header animate-on-scroll">
                     <h2>Un Equipo Dedicado a tu Voz</h2>
-                    <p>No solo somos instructores, somos artistas y profesionales en activo. Estamos aquí para guiarte con experiencia real.</p>
+                    <p>No sólo somos instructores, somos artistas y profesionales activos. Estamos aquí para guiarte con experiencia real, carreras consolidadas y ejemplos de vida capaces de inspirar y transformar.</p>
                 </div>
                 <div class="equipo-grid">
                     <div class="instructor-card animate-on-scroll">
-                        <div class="video-placeholder video-placeholder--circle" style="background-image: url('https://placehold.co/250x250/E08A1B/FFFFFF?text=Avatar');"></div>
-                        <h4>Abelardo Oseche</h4>
-                        <span class="titulo">Director Estratégico y Coach de Marca</span>
-                        <p>"Vi a demasiados artistas estancarse por falta de un método. Mi misión es darte las herramientas no solo para dominar tu voz, sino para construir una carrera."</p>
+                        <img class="instructor-img" src="Abelardo Oseche.jpg" alt="Foto de Abelardo Oseches" style="width: 250px; height: 250px; border-radius: 50%; object-fit: cover; object-position: 50% 40%; border: 5px solid white; box-shadow: var(--sombra-intensa); margin: 0 auto 20px;">
+                        <h4>Abelardo Oseches</h4>
+                        <span class="titulo">CEO fundador. Director Académico</span>
+                        <p>"Vi a demasiados artistas estancarse por falta de un método. Mi misión es darte las herramientas no sólo para dominar su voz, sino para construir una carrera."</p>
                     </div>
                     <div class="instructor-card animate-on-scroll" style="transition-delay: 0.2s;">
-                        <div class="video-placeholder video-placeholder--circle" style="background-image: url('https://placehold.co/250x250/2A8D95/FFFFFF?text=Avatar');"></div>
+                        <img class="instructor-img" src="Maira Rojas.jpg" alt="Foto de Maira Rojas" style="width: 250px; height: 250px; border-radius: 50%; object-fit: cover; object-position: 50% 20%; border: 5px solid white; box-shadow: var(--sombra-intensa); margin: 0 auto 20px;">
                         <h4>Maira Alejandra Rojas</h4>
-                        <span class="titulo">Directora Académica y Coach Vocal</span>
-                        <p>"Mi pasión es desbloquear el potencial auténtico de cada voz. Te enseñaré la técnica no como un fin, sino como el puente hacia tu libertad expresiva."</p>
+                        <span class="titulo">CCO. Directora Operativa</span>
+                        <p>"Mi pasión es la organización, la producción y los procesos. Nuestra misión es hacer de Voice, un ejemplo de gestión, de atención y de formación, para crear experiencias inolvidables desde el primer contacto."</p>
                     </div>
                     <div class="instructor-card animate-on-scroll" style="transition-delay: 0.4s;">
-                        <div class="video-placeholder video-placeholder--circle" style="background-image: url('https://placehold.co/250x250/002366/FFFFFF?text=Avatar');"></div>
-                        <h4>Carlos Méndez</h4>
-                        <span class="titulo">Instructor de Doblaje</span>
-                        <p>"El doblaje es actuar con el alma a través de la voz. En mis clases, jugamos, exploramos y encontramos la verdad en cada personaje."</p>
+                        <img class="instructor-img" src="Zayanit Lamas_Mesa de trabajo 1.jpg" alt="Foto de Zayanit Lamas" style="width: 250px; height: 250px; border-radius: 50%; object-fit: cover; object-position: 50% 40%; border: 5px solid white; box-shadow: var(--sombra-intensa); margin: 0 auto 20px;">
+                        <h4>Zayanit Lamas</h4>
+                        <span class="titulo">Coordinadora</span>
+                        <p>"Como diseñadora trato de mostrar la mejor cara de Voice, que lo que proyectemos como imagen se relacione con lo que somos como comunidad. Mi tarea al ser también la cara visible de la atención, es hacer que todos nuestros alumnos y clientes se sientan en casa."</p>
                     </div>
                 </div>
 
-                <div class="section-header animate-on-scroll" style="margin-top: 80px;">
-                    <h2>Lo que dicen nuestros Alumnos</h2>
-                </div>
-                <div class="alumnos-grid">
-                    <div class="testimonial-video-card animate-on-scroll">
-                        <div class="video-placeholder video-placeholder--rect" style="background-image: url('https://placehold.co/600x400/cccccc/FFFFFF?text=Testimonio+Video');"></div>
-                        <div class="testimonial-text">
-                            <p>"Llegué con muchas dudas. El método de la academia fue una revelación. En menos de 6 meses, no solo gané control sobre mi registro, sino que conseguí mi primer contrato para un audiolibro. Pasé de la incertidumbre a la confianza."</p>
-                            <span class="author">Ana Pérez, Locutora Profesional</span>
-                        </div>
-                    </div>
-                     <div class="testimonial-video-card animate-on-scroll" style="transition-delay: 0.2s;">
-                        <div class="video-placeholder video-placeholder--rect" style="background-image: url('https://placehold.co/600x400/cccccc/FFFFFF?text=Testimonio+Video');"></div>
-                        <div class="testimonial-text">
-                            <p>"Como emprendedor, mi voz es clave en mis ventas y conferencias. El taller de Oratoria me dio herramientas prácticas que apliqué al día siguiente con resultados inmediatos. Inversión 100% recomendada."</p>
-                            <span class="author">Javier Torres, Fundador de Startup</span>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
         </section>
 
@@ -837,6 +1007,48 @@
         </section>
 
     </main>
+
+    <!-- ======================= ESTRUCTURA DEL MODAL DE CURSOS ======================== -->
+    <div class="course-modal-overlay" id="course-modal-overlay">
+        <div class="course-modal" id="course-modal">
+            <button class="course-modal-close" id="course-modal-close">&times;</button>
+            <div class="course-modal-header">
+                <h2 id="modal-title">Título del Curso</h2>
+                <p id="modal-description">Descripción del curso.</p>
+            </div>
+            <div class="course-modal-body">
+                <h3>Detalles del Curso</h3>
+                <ul>
+                    <li id="modal-date-li">
+                        <i class="fa-solid fa-calendar-days fa-fw"></i>
+                        <span id="modal-date"></span>
+                    </li>
+                    <li id="modal-schedule-li">
+                        <i class="fa-solid fa-clock fa-fw"></i>
+                        <span id="modal-schedule"></span>
+                    </li>
+                    <li id="modal-capacity-li">
+                        <i class="fa-solid fa-users fa-fw"></i>
+                        <span id="modal-capacity"></span>
+                    </li>
+                     <li id="modal-price-li">
+                        <i class="fa-solid fa-dollar-sign fa-fw"></i>
+                        <span id="modal-price"></span>
+                    </li>
+                </ul>
+                <h3>¿Qué aprenderás?</h3>
+                <ul id="modal-temario">
+                    <!-- El temario se insertará aquí dinámicamente -->
+                </ul>
+            </div>
+            <div class="course-modal-footer">
+                <a href="#" id="modal-whatsapp-button" class="btn btn-whatsapp-modal" target="_blank">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    Reservar mi Cupo por WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
 
     <footer>
         <div class="container">
@@ -956,8 +1168,240 @@
         }
         
         document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+        // --- LÓGICA PARA EL MODAL DE CURSOS ---
+        const courseModalOverlay = document.getElementById('course-modal-overlay');
+        const courseModal = document.getElementById('course-modal');
+        const courseModalClose = document.getElementById('course-modal-close');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDescription = document.getElementById('modal-description');
+        const modalDate = document.getElementById('modal-date');
+        const modalSchedule = document.getElementById('modal-schedule');
+        const modalCapacity = document.getElementById('modal-capacity');
+        const modalPrice = document.getElementById('modal-price');
+        const modalTemario = document.getElementById('modal-temario');
+        const modalWhatsappButton = document.getElementById('modal-whatsapp-button');
+
+        const courses = [
+            // Presenciales
+            {
+                id: 'acento-neutro-presencial',
+                title: 'Acento Neutro',
+                description: 'Un entrenamiento intensivo y efectivo, trabajando con un método propio que te enseña a deslocalizar tu acento natal. Te enseñamos sus distintas aplicaciones para la oratoria, la locución, el doblaje y para la comunicación en general. No vas a creer como cambia tu forma de comunicar cuando deslocalizas y neutralizas tu acento.',
+                price: '$150 USD',
+                schedule: 'Horarios flexibles',
+                capacity: '7 cupos disponibles',
+                date: 'Inicia: Lun 16 de Septiembre',
+                temario: [
+                    'Técnicas para deslocalizar el acento natal.',
+                    'Aplicaciones en oratoria, locución y doblaje.',
+                    'Mejora de la comunicación general.'
+                ]
+            },
+            {
+                id: 'diccion-perfecta-presencial',
+                title: 'Dicción Perfecta',
+                description: 'Deja de usar el lápiz creyendo que vas a corregir tus problemas de pronunciación. Aquí te enseñamos un método único que se basa en la mecánica de los fonemas y en el componente auditivo de la dicción, para que tu pronunciación vaya de 0 a 100 en 4 simples pasos. 100% práctico, interactivo y con resultados sorprendentes.',
+                price: 'Consultar',
+                schedule: 'Horarios flexibles',
+                capacity: 'Grupos reducidos',
+                date: 'Inicia: Mar 17 de Septiembre',
+                temario: [
+                    'Método basado en la mecánica de fonemas.',
+                    'Componente auditivo de la dicción.',
+                    '4 pasos para mejorar la pronunciación.',
+                    'Ejercicios prácticos e interactivos.'
+                ]
+            },
+            {
+                id: 'locucion-comercial-presencial',
+                title: 'Locución Comercial',
+                description: 'La disciplina más rentable del mundo profesional de la voz. Aprende a decodificar y comprender los textos, herramientas para lograr diferencias estilos e intenciones comerciales, manejo de las cualidades de la voz, entiende el nuevo rol del locutor comercial, aprende las técnicas de la locución internacional en una experiencia dinámica, práctica y con dirección personalizada.',
+                price: 'Consultar',
+                schedule: 'Horarios flexibles',
+                capacity: 'Grupos reducidos',
+                date: 'Inicia: Mié 18 de Septiembre',
+                temario: [
+                    'Decodificación y comprensión de textos.',
+                    'Estilos e intenciones comerciales.',
+                    'Manejo de cualidades de la voz.',
+                    'Técnicas de locución internacional.'
+                ]
+            },
+            {
+                id: 'doblaje-basico-presencial',
+                title: 'Doblaje Básico',
+                description: 'Vive una experiencia inmersiva en el mundo del doblaje, entrenando tu capacidad interpretativa, manejando y controlando tonos, matices, ritmos e intenciones, aprende a manejar el lip sync y otras herramientas para que vivas la experiencia real de ponerle tu voz a personajes de series reales o dibujos animados. Prácticas dirigidas y ejercicios reales.',
+                price: 'Consultar',
+                schedule: 'Horarios flexibles',
+                capacity: 'Grupos reducidos',
+                date: 'Inicia: Jue 19 de Septiembre',
+                temario: [
+                    'Entrenamiento de capacidad interpretativa.',
+                    'Manejo de tonos, matices, ritmos e intenciones.',
+                    'Técnicas de lip sync.',
+                    'Prácticas con personajes reales.'
+                ]
+            },
+            {
+                id: 'oratoria-presencial',
+                title: 'Oratoria',
+                description: 'La oratoria moderna, la que se basa en la comunicación efectiva, en la estructura de mensajes orientados a impactar mediante herramientas como el storytelling, la naturalidad y el sentido orgánico de la expresión, pero trabajada con técnicas y herramientas para hacerlo bien, que suene bien y que se vea bien. No hay comunicación sin autenticidad y eso es lo que te enseñamos aquí.',
+                price: 'Consultar',
+                schedule: 'Horarios flexibles',
+                capacity: 'Grupos reducidos',
+                date: 'Inicia: Vie 20 de Septiembre',
+                temario: [
+                    'Comunicación efectiva y storytelling.',
+                    'Naturalidad y expresión orgánica.',
+                    'Técnicas para una buena oratoria.',
+                    'Principios de autenticidad en la comunicación.'
+                ]
+            },
+            {
+                id: 'doblaje-animados-presencial',
+                title: 'Doblaje de Dibujos Animados',
+                description: 'El doblaje de animados no es imitar voces o “hacer vocecitas” la caracterización es un arte y se basa en técnica. Aprende a manejar tu voz, a colocarla, a usar tus resonadores para convertirla en aguda o en grave segúnelas características de tu personaje. Te enseñamos a combinar esas habilidades con la interpretación a través de técnicas divertidas, inmersivas y 100% prácticas.',
+                price: 'Consultar',
+                schedule: 'Horarios flexibles',
+                capacity: 'Grupos reducidos',
+                date: 'Inicia: Sáb 21 de Septiembre',
+                temario: [
+                    'Técnicas de caracterización vocal.',
+                    'Manejo de resonadores para tonos.',
+                    'Combinación de habilidades vocales e interpretación.',
+                    'Prácticas inmersivas y divertidas.'
+                ]
+            },
+            // Online
+            {
+                id: 'locucion-comercial-online',
+                title: 'Locución Comercial Online',
+                description: 'La disciplina más rentable del mundo profesional de la voz. Aprende a decodificar textos, diferenciar estilos e intenciones y manejar las cualidades de la voz.',
+                price: '$150 USD',
+                schedule: 'Fechas disponibles',
+                capacity: '7 cupos disponibles',
+                temario: [
+                    'Decodificación de textos comerciales.',
+                    'Diferenciación de estilos e intenciones.',
+                    'Manejo de las cualidades de la voz.'
+                ]
+            },
+            {
+                id: 'acento-neutro-online',
+                title: 'Acento Neutro Online',
+                description: 'Un entrenamiento intensivo y efectivo con un método propio que te enseña a deslocalizar tu acento natal y sus distintas aplicaciones para la comunicación.',
+                price: 'Consultar',
+                schedule: 'Fechas disponibles',
+                capacity: 'Cupos limitados',
+                temario: [
+                    'Método para deslocalizar el acento.',
+                    'Aplicaciones en la comunicación.',
+                    'Entrenamiento intensivo y efectivo.'
+                ]
+            },
+            {
+                id: 'oratoria-online',
+                title: 'Oratoria Online',
+                description: 'La oratoria moderna basada en la comunicación efectiva, la estructura de mensajes y el storytelling para impactar con naturalidad y autenticidad.',
+                price: 'Consultar',
+                schedule: 'Fechas disponibles',
+                capacity: 'Cupos limitados',
+                temario: [
+                    'Comunicación efectiva.',
+                    'Estructura de mensajes y storytelling.',
+                    'Impacto con naturalidad y autenticidad.'
+                ]
+            },
+            {
+                id: 'doblaje-basico-online',
+                title: 'Doblaje Básico Online',
+                description: 'Una experiencia inmersiva en el doblaje, entrenando tu capacidad interpretativa, manejando tonos, matices, ritmos, intenciones y lip sync.',
+                price: 'Consultar',
+                schedule: 'Fechas disponibles',
+                capacity: 'Cupos limitados',
+                temario: [
+                    'Entrenamiento interpretativo en doblaje.',
+                    'Manejo de tonos, matices, ritmos e intenciones.',
+                    'Técnicas de lip sync.'
+                ]
+            }
+        ];
+
+        function openModal(courseId) {
+            const course = courses.find(c => c.id === courseId);
+            if (course) {
+                modalTitle.textContent = course.title;
+                modalDescription.textContent = course.description;
+                modalDate.textContent = course.date || 'Próximas fechas disponibles';
+                modalSchedule.textContent = course.schedule || 'Horarios a convenir';
+                modalCapacity.textContent = course.capacity || 'Cupos limitados';
+                modalPrice.textContent = course.price || 'Consultar precio';
+
+                modalTemario.innerHTML = '';
+                if (course.temario && course.temario.length > 0) {
+                    course.temario.forEach(item => {
+                        const li = document.createElement('li');
+                        li.innerHTML = `<i class="fa-solid fa-check fa-fw"></i><span>${item}</span>`;
+                        modalTemario.appendChild(li);
+                    });
+                } else {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<i class="fa-solid fa-info-circle fa-fw"></i><span>Contenido detallado disponible al contactar.</span>`;
+                    modalTemario.appendChild(li);
+                }
+
+                const whatsappMessage = `¡Hola! Estoy interesado/a en el curso de *${course.title}*. ¿Podrían darme más información?`;
+                const phoneNumber = '584123456789'; // Reemplazar con el número real
+                modalWhatsappButton.href = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+
+                courseModalOverlay.classList.add('visible');
+            }
+        }
+
+        function closeModal() {
+            courseModalOverlay.classList.remove('visible');
+        }
+
+        courseModalClose.addEventListener('click', closeModal);
+        courseModalOverlay.addEventListener('click', (e) => {
+            if (e.target === courseModalOverlay) {
+                closeModal();
+            }
+        });
+
+        // Asignar la función openModal a los botones de las tarjetas de curso
+        document.querySelectorAll('.info-card .btn-primary').forEach(button => {
+            const courseCard = button.closest('.info-card');
+            let courseId;
+
+            // Determine courseId based on the text content of the h3 in the info-card
+            const courseTitleElement = courseCard.querySelector('h3');
+            if (courseTitleElement) {
+                const title = courseTitleElement.textContent.trim();
+                // Map titles to IDs, considering both presencial and online sections
+                if (courseCard.closest('#presenciales')) {
+                    if (title === 'Acento Neutro') courseId = 'acento-neutro-presencial';
+                    else if (title === 'Dicción Perfecta') courseId = 'diccion-perfecta-presencial';
+                    else if (title === 'Locución Comercial') courseId = 'locucion-comercial-presencial';
+                    else if (title === 'Doblaje Básico') courseId = 'doblaje-basico-presencial';
+                    else if (title === 'Oratoria') courseId = 'oratoria-presencial';
+                    else if (title === 'Doblaje de Dibujos Animados') courseId = 'doblaje-animados-presencial';
+                } else if (courseCard.closest('#online')) {
+                    if (title === 'Locución Comercial') courseId = 'locucion-comercial-online';
+                    else if (title === 'Acento Neutro') courseId = 'acento-neutro-online';
+                    else if (title === 'Oratoria') courseId = 'oratoria-online';
+                    else if (title === 'Doblaje Básico') courseId = 'doblaje-basico-online';
+                }
+            }
+
+            if (courseId) {
+                button.href = 'javascript:void(0);'; // Prevent default navigation
+                button.onclick = () => openModal(courseId);
+            }
+        });
     });
-    </script>
+</script>
 
 </body>
 </html>
